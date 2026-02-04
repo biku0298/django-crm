@@ -15,6 +15,11 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://django-crm-vch1.onrender.com",
+]
+
+
 
 
 
