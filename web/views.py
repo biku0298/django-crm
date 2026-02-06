@@ -9,23 +9,29 @@ def home(request):
     records = Record.objects.all()
 
     if request.method == 'POST':
-		try:
-	        username = request.POST['username']
-	        password = request.POST['password']
-	        user = authenticate(request, username=username, password=password)
-	        if user is not None:
-	            login(request, user)
-	            messages.success(request, 'You have successfully logged in!')
-	            return redirect('home')
-	        else:
-	            messages.error(request, 'Username or password is incorrect! Try again!')
-	            return redirect('home')
-		 except Exception as e:
+        try:
+            username = request.POST['username']
+            password = request.POST['password']
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'You have successfully logged in!')
+                return redirect('home')
+            else:
+                messages.error(
+                    request,
+                    'Username or password is incorrect! Try again!'
+                )
+                return redirect('home')
+
+        except Exception as e:
             print("🔥 POST ERROR:", e)
             raise
+
     else:
         return render(request, 'index.html', {'records': records})
-
 
 def logout_user(request):
     logout(request)
